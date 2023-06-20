@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link
+        href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900'
+        rel='stylesheet' type='text/css'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+
+<body>
+    <style>
+        .priority-high {
+            border-radius: 10px;
+            padding: 3px 13px;
+            background-color: #eb1919;
+            color: #d1d1d1;
+        }
+
+        .medium {
+            background-color: #ebdd19;
+        }
+
+        .low {
+            background-color: #19f505;
+        }
+    </style>
+
+    <nav class="navbar bg-blue" style="margin-bottom: 20px;">
+        <div class="container">
+            <a class="navbar-brand" href="#" style="color:#fff;">Список дел</a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                {% for task in tasks %}
+                <article class="media content-section">
+                    <div class="media-body">
+                        <div class="article-metadata">
+                            <small class="text-muted">{{ task.date_posted }}</small> | <small class="text-muted">
+                                {{ task.date_finished }}</small> {% if task.priority == "высокий" %}<small class="priority-high">
+                                {{ task.priority }}</small>{% elif task.priority == "средний" %}<small class="priority-high medium">
+                                {{ task.priority }}</small>{% else %}<small class="priority-high low">
+                                {{ task.priority }}</small>{% endif %} {% if task.status == "ожидает выполнения" %}<small
+                                class="text-muted priority-high medium">{{ task.status }}</small>{% else %}<small
+                                class="text-muted priority-high low">{{ task.status }}</small>{% endif %}
+                        </div>
+                        <h2>{{ task.title }}</h2>
+                        <p class="article-content">{{ task.content }}</p>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
